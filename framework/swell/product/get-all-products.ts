@@ -1,36 +1,30 @@
-import { getConfig, SwellConfig } from '../api'
-import { normalizeProduct } from '../utils/normalize'
-import { Product } from '@commerce/types'
-import { SwellProduct } from '../types'
+import { getConfig, SwellConfig } from '../api';
+import { normalizeProduct } from '../utils/normalize';
+import { Product } from '@commerce/types';
+import { SwellProduct } from '../types';
 
 type Variables = {
-  first?: number
-  field?: string
-}
+    first?: number;
+    field?: string;
+};
 
 type ReturnType = {
-  products: Product[]
-}
+    products: Product[];
+};
 
-const getAllProducts = async (options: {
-  variables?: Variables
-  config?: SwellConfig
-  preview?: boolean
-}): Promise<ReturnType> => {
-  let { config, variables = { first: 250 } } = options ?? {}
-  config = getConfig(config)
-  const { results } = await config.fetch('products', 'list', [
-    {
-      limit: variables.first,
-    },
-  ])
-  const products = results.map((product: SwellProduct) =>
-    normalizeProduct(product)
-  )
+const getAllProducts = async (options: { variables?: Variables; config?: SwellConfig; preview?: boolean }): Promise<ReturnType> => {
+    let { config, variables = { first: 250 } } = options ?? {};
+    config = getConfig(config);
+    const { results } = await config.fetch('products', 'list', [
+        {
+            limit: variables.first,
+        },
+    ]);
+    const products = results.map((product: SwellProduct) => normalizeProduct(product));
 
-  return {
-    products,
-  }
-}
+    return {
+        products,
+    };
+};
 
-export default getAllProducts
+export default getAllProducts;

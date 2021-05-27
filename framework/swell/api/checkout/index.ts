@@ -1,20 +1,20 @@
-import createApiHandler, { SwellApiHandler } from '../utils/create-api-handler'
+import createApiHandler, { SwellApiHandler } from '../utils/create-api-handler';
 
-import { SWELL_CHECKOUT_URL_COOKIE } from '../../const'
+import { SWELL_CHECKOUT_URL_COOKIE } from '../../const';
 
-import { getConfig } from '..'
+import { getConfig } from '..';
 
 const checkoutApi: SwellApiHandler<any> = async (req, res, config) => {
-  config = getConfig()
+    config = getConfig();
 
-  const { cookies } = req
-  const checkoutUrl = cookies[SWELL_CHECKOUT_URL_COOKIE]
+    const { cookies } = req;
+    const checkoutUrl = cookies[SWELL_CHECKOUT_URL_COOKIE];
 
-  if (checkoutUrl) {
-    res.redirect(checkoutUrl)
-  } else {
-    res.redirect('/cart')
-  }
-}
+    if (checkoutUrl) {
+        res.redirect(checkoutUrl);
+    } else {
+        res.redirect('/cart');
+    }
+};
 
-export default createApiHandler(checkoutApi, {}, {})
+export default createApiHandler(checkoutApi, {}, {});

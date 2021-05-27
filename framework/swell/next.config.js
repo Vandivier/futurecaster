@@ -1,8 +1,8 @@
-const commerce = require('./commerce.config.json')
+const commerce = require('./commerce.config.json');
 
 module.exports = {
-  commerce,
-  images: {
-    domains: ['cdn.schema.io'],
-  },
-}
+    commerce,
+    images: {
+        domains: ['cdn.schema.io'],
+    },
+};

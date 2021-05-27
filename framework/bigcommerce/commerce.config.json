@@ -1,6 +1,6 @@
 {
-  "provider": "bigcommerce",
-  "features": {
-    "wishlist": true
-  }
+    "provider": "bigcommerce",
+    "features": {
+        "wishlist": true
+    }
 }

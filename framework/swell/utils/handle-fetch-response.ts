@@ -1,19 +1,19 @@
-import { CommerceError } from '@commerce/utils/errors'
+import { CommerceError } from '@commerce/utils/errors';
 
 type SwellFetchResponse = {
-  error: {
-    message: string
-    code?: string
-  }
-}
+    error: {
+        message: string;
+        code?: string;
+    };
+};
 
 const handleFetchResponse = async (res: SwellFetchResponse) => {
-  if (res) {
-    if (res.error) {
-      throw new CommerceError(res.error)
+    if (res) {
+        if (res.error) {
+            throw new CommerceError(res.error);
+        }
+        return res;
     }
-    return res
-  }
-}
+};
 
-export default handleFetchResponse
+export default handleFetchResponse;

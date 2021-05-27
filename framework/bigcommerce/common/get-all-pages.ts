@@ -1,43 +1,36 @@
-import type { RecursivePartial, RecursiveRequired } from '../api/utils/types'
-import { BigcommerceConfig, getConfig } from '../api'
-import { definitions } from '../api/definitions/store-content'
+import type { RecursivePartial, RecursiveRequired } from '../api/utils/types';
+import { BigcommerceConfig, getConfig } from '../api';
+import { definitions } from '../api/definitions/store-content';
 
-export type Page = definitions['page_Full']
+export type Page = definitions['page_Full'];
 
-export type GetAllPagesResult<
-  T extends { pages: any[] } = { pages: Page[] }
-> = T
+export type GetAllPagesResult<T extends { pages: any[] } = { pages: Page[] }> = T;
 
-async function getAllPages(opts?: {
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllPagesResult>
+async function getAllPages(opts?: { config?: BigcommerceConfig; preview?: boolean }): Promise<GetAllPagesResult>;
 
 async function getAllPages<T extends { pages: any[] }>(opts: {
-  url: string
-  config?: BigcommerceConfig
-  preview?: boolean
-}): Promise<GetAllPagesResult<T>>
+    url: string;
+    config?: BigcommerceConfig;
+    preview?: boolean;
+}): Promise<GetAllPagesResult<T>>;
 
 async function getAllPages({
-  config,
-  preview,
+    config,
+    preview,
 }: {
-  url?: string
-  config?: BigcommerceConfig
-  preview?: boolean
+    url?: string;
+    config?: BigcommerceConfig;
+    preview?: boolean;
 } = {}): Promise<GetAllPagesResult> {
-  config = getConfig(config)
-  // RecursivePartial forces the method to check for every prop in the data, which is
-  // required in case there's a custom `url`
-  const { data } = await config.storeApiFetch<
-    RecursivePartial<{ data: Page[] }>
-  >('/v3/content/pages')
-  const pages = (data as RecursiveRequired<typeof data>) ?? []
+    config = getConfig(config);
+    // RecursivePartial forces the method to check for every prop in the data, which is
+    // required in case there's a custom `url`
+    const { data } = await config.storeApiFetch<RecursivePartial<{ data: Page[] }>>('/v3/content/pages');
+    const pages = (data as RecursiveRequired<typeof data>) ?? [];
 
-  return {
-    pages: preview ? pages : pages.filter((p) => p.is_visible),
-  }
+    return {
+        pages: preview ? pages : pages.filter((p) => p.is_visible),
+    };
 }
 
-export default getAllPages
+export default getAllPages;

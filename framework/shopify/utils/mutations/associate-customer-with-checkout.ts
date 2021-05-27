@@ -14,5 +14,5 @@ mutation associateCustomerWithCheckout($checkoutId: ID!, $customerAccessToken: S
       }
     }
   }
-`
-export default associateCustomerWithCheckoutMutation
+`;
+export default associateCustomerWithCheckoutMutation;

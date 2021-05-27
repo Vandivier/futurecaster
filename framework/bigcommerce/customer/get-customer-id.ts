@@ -1,34 +1,30 @@
-import { GetCustomerIdQuery } from '../schema'
-import { BigcommerceConfig, getConfig } from '../api'
+import { GetCustomerIdQuery } from '../schema';
+import { BigcommerceConfig, getConfig } from '../api';
 
 export const getCustomerIdQuery = /* GraphQL */ `
-  query getCustomerId {
-    customer {
-      entityId
+    query getCustomerId {
+        customer {
+            entityId
+        }
     }
-  }
-`
+`;
 
 async function getCustomerId({
-  customerToken,
-  config,
+    customerToken,
+    config,
 }: {
-  customerToken: string
-  config?: BigcommerceConfig
+    customerToken: string;
+    config?: BigcommerceConfig;
 }): Promise<number | undefined> {
-  config = getConfig(config)
+    config = getConfig(config);
 
-  const { data } = await config.fetch<GetCustomerIdQuery>(
-    getCustomerIdQuery,
-    undefined,
-    {
-      headers: {
-        cookie: `${config.customerCookie}=${customerToken}`,
-      },
-    }
-  )
+    const { data } = await config.fetch<GetCustomerIdQuery>(getCustomerIdQuery, undefined, {
+        headers: {
+            cookie: `${config.customerCookie}=${customerToken}`,
+        },
+    });
 
-  return data?.customer?.entityId
+    return data?.customer?.entityId;
 }
 
-export default getCustomerId
+export default getCustomerId;

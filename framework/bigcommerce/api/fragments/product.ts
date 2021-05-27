@@ -1,113 +1,112 @@
 export const productPrices = /* GraphQL */ `
-  fragment productPrices on Prices {
-    price {
-      value
-      currencyCode
+    fragment productPrices on Prices {
+        price {
+            value
+            currencyCode
+        }
+        salePrice {
+            value
+            currencyCode
+        }
+        retailPrice {
+            value
+            currencyCode
+        }
     }
-    salePrice {
-      value
-      currencyCode
-    }
-    retailPrice {
-      value
-      currencyCode
-    }
-  }
-`
+`;
 
 export const swatchOptionFragment = /* GraphQL */ `
-  fragment swatchOption on SwatchOptionValue {
-    isDefault
-    hexColors
-  }
-`
+    fragment swatchOption on SwatchOptionValue {
+        isDefault
+        hexColors
+    }
+`;
 
 export const multipleChoiceOptionFragment = /* GraphQL */ `
-  fragment multipleChoiceOption on MultipleChoiceOption {
-    values {
-      edges {
-        node {
-          label
-          ...swatchOption
+    fragment multipleChoiceOption on MultipleChoiceOption {
+        values {
+            edges {
+                node {
+                    label
+                    ...swatchOption
+                }
+            }
         }
-      }
     }
-  }
 
-  ${swatchOptionFragment}
-`
+    ${swatchOptionFragment}
+`;
 
 export const productInfoFragment = /* GraphQL */ `
-  fragment productInfo on Product {
-    entityId
-    name
-    path
-    brand {
-      entityId
-    }
-    description
-    prices {
-      ...productPrices
-    }
-    images {
-      edges {
-        node {
-          urlOriginal
-          altText
-          isDefault
+    fragment productInfo on Product {
+        entityId
+        name
+        path
+        brand {
+            entityId
         }
-      }
-    }
-    variants {
-      edges {
-        node {
-          entityId
-          defaultImage {
-            urlOriginal
-            altText
-            isDefault
-          }
+        description
+        prices {
+            ...productPrices
         }
-      }
-    }
-    productOptions {
-      edges {
-        node {
-          __typename
-          entityId
-          displayName
-          ...multipleChoiceOption
+        images {
+            edges {
+                node {
+                    urlOriginal
+                    altText
+                    isDefault
+                }
+            }
         }
-      }
-    }
-    localeMeta: metafields(namespace: $locale, keys: ["name", "description"])
-      @include(if: $hasLocale) {
-      edges {
-        node {
-          key
-          value
+        variants {
+            edges {
+                node {
+                    entityId
+                    defaultImage {
+                        urlOriginal
+                        altText
+                        isDefault
+                    }
+                }
+            }
         }
-      }
+        productOptions {
+            edges {
+                node {
+                    __typename
+                    entityId
+                    displayName
+                    ...multipleChoiceOption
+                }
+            }
+        }
+        localeMeta: metafields(namespace: $locale, keys: ["name", "description"]) @include(if: $hasLocale) {
+            edges {
+                node {
+                    key
+                    value
+                }
+            }
+        }
     }
-  }
 
-  ${productPrices}
-  ${multipleChoiceOptionFragment}
-`
+    ${productPrices}
+    ${multipleChoiceOptionFragment}
+`;
 
 export const productConnectionFragment = /* GraphQL */ `
-  fragment productConnnection on ProductConnection {
-    pageInfo {
-      startCursor
-      endCursor
+    fragment productConnnection on ProductConnection {
+        pageInfo {
+            startCursor
+            endCursor
+        }
+        edges {
+            cursor
+            node {
+                ...productInfo
+            }
+        }
     }
-    edges {
-      cursor
-      node {
-        ...productInfo
-      }
-    }
-  }
 
-  ${productInfoFragment}
-`
+    ${productInfoFragment}
+`;

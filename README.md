@@ -7,21 +7,21 @@ Start right now at [nextjs.org/commerce](https://nextjs.org/commerce)
 
 Demo live at: [demo.vercel.store](https://demo.vercel.store/)
 
-- Shopify Demo: https://shopify.vercel.store/
-- Swell Demo: https://swell.vercel.store/
-- BigCommerce Demo: https://bigcommerce.vercel.store/
+-   Shopify Demo: https://shopify.vercel.store/
+-   Swell Demo: https://swell.vercel.store/
+-   BigCommerce Demo: https://bigcommerce.vercel.store/
 
 ## Features
 
-- Performant by default
-- SEO Ready
-- Internationalization
-- Responsive
-- UI Components
-- Theming
-- Standardized Data Hooks
-- Integrations - Integrate seamlessly with the most common ecommerce platforms.
-- Dark Mode Support
+-   Performant by default
+-   SEO Ready
+-   Internationalization
+-   Responsive
+-   UI Components
+-   Theming
+-   Standardized Data Hooks
+-   Integrations - Integrate seamlessly with the most common ecommerce platforms.
+-   Dark Mode Support
 
 ## Integrations
 
@@ -29,11 +29,11 @@ Next.js Commerce integrates out-of-the-box with BigCommerce and Shopify. We plan
 
 ## Considerations
 
-- `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
-- **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
-- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
-- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
-- **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
+-   `framework/commerce` contains all types, helpers and functions to be used as base to build a new **provider**.
+-   **Providers** live under `framework`'s root folder and they will extend Next.js Commerce types and functionality (`framework/commerce`).
+-   We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programatically.
+-   Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in case of BigCommerce, the images CDN and additional API routes.
+-   **Providers don't depend on anything that's specific to the application they're used in**. They only depend on `framework/commerce`, on their own framework folder and on some dependencies included in `package.json`
 
 ## Configuration
 
@@ -50,6 +50,7 @@ NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
 ```
 
 And change the `tsconfig.json` to resolve to the chosen provider:
+
 ```
   "@framework": ["framework/shopify"],
   "@framework/*": ["framework/shopify/*"]
@@ -65,17 +66,17 @@ Every provider defines the features that it supports under `framework/{provider}
 
 > NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out the box)
 
-- Open `commerce.config.json`
-- You'll see a config file like this:
-  ```json
-  {
-    "features": {
-      "wishlist": false
+-   Open `commerce.config.json`
+-   You'll see a config file like this:
+    ```json
+    {
+        "features": {
+            "wishlist": false
+        }
     }
-  }
-  ```
-- Turn wishlist on by setting wishlist to true.
-- Run the app and the wishlist functionality should be back on.
+    ```
+-   Turn wishlist on by setting wishlist to true.
+-   Run the app and the wishlist functionality should be back on.
 
 ### How to create a new provider
 

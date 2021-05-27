@@ -1,59 +1,58 @@
-import type { MutationHook } from '@commerce/utils/types'
-import { CommerceError } from '@commerce/utils/errors'
-import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
-import useCart from './use-cart'
-import { Cart, CartItemBody } from '../types'
-import { checkoutToCart } from './utils'
-import { getCheckoutId } from '../utils'
-import { useCallback } from 'react'
+import type { MutationHook } from '@commerce/utils/types';
+import { CommerceError } from '@commerce/utils/errors';
+import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item';
+import useCart from './use-cart';
+import { Cart, CartItemBody } from '../types';
+import { checkoutToCart } from './utils';
+import { getCheckoutId } from '../utils';
+import { useCallback } from 'react';
 
-export default useAddItem as UseAddItem<typeof handler>
+export default useAddItem as UseAddItem<typeof handler>;
 
 export const handler: MutationHook<Cart, {}, CartItemBody> = {
-  fetchOptions: {
-    query: 'cart',
-    method: 'addItem',
-  },
-  async fetcher({ input: item, options, fetch }) {
-    if (
-      item.quantity &&
-      (!Number.isInteger(item.quantity) || item.quantity! < 1)
-    ) {
-      throw new CommerceError({
-        message: 'The item quantity has to be a valid integer greater than 0',
-      })
-    }
-    const variables: {
-      product_id: string
-      variant_id?: string
-      checkoutId?: string
-      quantity?: number
-    } = {
-      checkoutId: getCheckoutId(),
-      product_id: item.productId,
-      quantity: item.quantity,
-    }
-    if (item.productId !== item.variantId) {
-      variables.variant_id = item.variantId
-    }
+    fetchOptions: {
+        query: 'cart',
+        method: 'addItem',
+    },
+    async fetcher({ input: item, options, fetch }) {
+        if (item.quantity && (!Number.isInteger(item.quantity) || item.quantity! < 1)) {
+            throw new CommerceError({
+                message: 'The item quantity has to be a valid integer greater than 0',
+            });
+        }
+        const variables: {
+            product_id: string;
+            variant_id?: string;
+            checkoutId?: string;
+            quantity?: number;
+        } = {
+            checkoutId: getCheckoutId(),
+            product_id: item.productId,
+            quantity: item.quantity,
+        };
+        if (item.productId !== item.variantId) {
+            variables.variant_id = item.variantId;
+        }
 
-    const response = await fetch({
-      ...options,
-      variables,
-    })
+        const response = await fetch({
+            ...options,
+            variables,
+        });
 
-    return checkoutToCart(response) as any
-  },
-  useHook: ({ fetch }) => () => {
-    const { mutate } = useCart()
+        return checkoutToCart(response) as any;
+    },
+    useHook:
+        ({ fetch }) =>
+        () => {
+            const { mutate } = useCart();
 
-    return useCallback(
-      async function addItem(input) {
-        const data = await fetch({ input })
-        await mutate(data, false)
-        return data
-      },
-      [fetch, mutate]
-    )
-  },
-}
+            return useCallback(
+                async function addItem(input) {
+                    const data = await fetch({ input });
+                    await mutate(data, false);
+                    return data;
+                },
+                [fetch, mutate]
+            );
+        },
+};

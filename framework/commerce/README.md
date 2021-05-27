@@ -1,32 +1,32 @@
 # Commerce Framework
 
-- [Commerce Framework](#commerce-framework)
-  - [Commerce Hooks](#commerce-hooks)
-    - [CommerceProvider](#commerceprovider)
-  - [Authentication Hooks](#authentication-hooks)
-    - [useSignup](#usesignup)
-    - [useLogin](#uselogin)
-    - [useLogout](#uselogout)
-  - [Customer Hooks](#customer-hooks)
-    - [useCustomer](#usecustomer)
-  - [Product Hooks](#product-hooks)
-    - [usePrice](#useprice)
-    - [useSearch](#usesearch)
-  - [Cart Hooks](#cart-hooks)
-    - [useCart](#usecart)
-    - [useAddItem](#useadditem)
-    - [useUpdateItem](#useupdateitem)
-    - [useRemoveItem](#useremoveitem)
-  - [Wishlist Hooks](#wishlist-hooks)
-  - [Commerce API](#commerce-api)
-  - [More](#more)
+-   [Commerce Framework](#commerce-framework)
+    -   [Commerce Hooks](#commerce-hooks)
+        -   [CommerceProvider](#commerceprovider)
+    -   [Authentication Hooks](#authentication-hooks)
+        -   [useSignup](#usesignup)
+        -   [useLogin](#uselogin)
+        -   [useLogout](#uselogout)
+    -   [Customer Hooks](#customer-hooks)
+        -   [useCustomer](#usecustomer)
+    -   [Product Hooks](#product-hooks)
+        -   [usePrice](#useprice)
+        -   [useSearch](#usesearch)
+    -   [Cart Hooks](#cart-hooks)
+        -   [useCart](#usecart)
+        -   [useAddItem](#useadditem)
+        -   [useUpdateItem](#useupdateitem)
+        -   [useRemoveItem](#useremoveitem)
+    -   [Wishlist Hooks](#wishlist-hooks)
+    -   [Commerce API](#commerce-api)
+    -   [More](#more)
 
 The commerce framework ships multiple hooks and a Node.js API, both using an underlying headless e-commerce platform, which we call commerce providers.
 
 The core features are:
 
-- Code splitted hooks for data fetching using [SWR](https://swr.vercel.app/), and to handle common user actions
-- A Node.js API for initial data population, static generation of content and for creating the API endpoints that connect to the hooks, if required.
+-   Code splitted hooks for data fetching using [SWR](https://swr.vercel.app/), and to handle common user actions
+-   A Node.js API for initial data population, static generation of content and for creating the API endpoints that connect to the hooks, if required.
 
 > 👩‍🔬 If you would like to contribute a new provider, check the docs for [Adding a new Commerce Provider](./new-provider.md).
 
@@ -40,10 +40,10 @@ Data fetching hooks use [SWR](https://swr.vercel.app/) underneath and you're wel
 
 ```jsx
 const { data, isLoading, error } = useCustomer({
-  swrOptions: {
-    revalidateOnFocus: true,
-  },
-})
+    swrOptions: {
+        revalidateOnFocus: true,
+    },
+});
 ```
 
 ### CommerceProvider
@@ -51,11 +51,11 @@ const { data, isLoading, error } = useCustomer({
 This component adds the provider config and handlers to the context of your React tree for it's children. You can optionally pass the `locale` to it:
 
 ```jsx
-import { CommerceProvider } from '@framework'
+import { CommerceProvider } from '@framework';
 
 const App = ({ locale = 'en-US', children }) => {
-  return <CommerceProvider locale={locale}>{children}</CommerceProvider>
-}
+    return <CommerceProvider locale={locale}>{children}</CommerceProvider>;
+};
 ```
 
 ## Authentication Hooks
@@ -65,22 +65,22 @@ const App = ({ locale = 'en-US', children }) => {
 Returns a _signup_ function that can be used to sign up the current visitor:
 
 ```jsx
-import useSignup from '@framework/auth/use-signup'
+import useSignup from '@framework/auth/use-signup';
 
 const SignupView = () => {
-  const signup = useSignup()
+    const signup = useSignup();
 
-  const handleSignup = async () => {
-    await signup({
-      email,
-      firstName,
-      lastName,
-      password,
-    })
-  }
+    const handleSignup = async () => {
+        await signup({
+            email,
+            firstName,
+            lastName,
+            password,
+        });
+    };
 
-  return <form onSubmit={handleSignup}>{children}</form>
-}
+    return <form onSubmit={handleSignup}>{children}</form>;
+};
 ```
 
 ### useLogin
@@ -88,19 +88,19 @@ const SignupView = () => {
 Returns a _login_ function that can be used to sign in the current visitor into an existing customer:
 
 ```jsx
-import useLogin from '@framework/auth/use-login'
+import useLogin from '@framework/auth/use-login';
 
 const LoginView = () => {
-  const login = useLogin()
-  const handleLogin = async () => {
-    await login({
-      email,
-      password,
-    })
-  }
+    const login = useLogin();
+    const handleLogin = async () => {
+        await login({
+            email,
+            password,
+        });
+    };
 
-  return <form onSubmit={handleLogin}>{children}</form>
-}
+    return <form onSubmit={handleLogin}>{children}</form>;
+};
 ```
 
 ### useLogout
@@ -108,16 +108,16 @@ const LoginView = () => {
 Returns a _logout_ function that signs out the current customer when called.
 
 ```jsx
-import useLogout from '@framework/auth/use-logout'
+import useLogout from '@framework/auth/use-logout';
 
 const LogoutButton = () => {
-  const logout = useLogout()
-  return (
-    <button type="button" onClick={() => logout()}>
-      Logout
-    </button>
-  )
-}
+    const logout = useLogout();
+    return (
+        <button type="button" onClick={() => logout()}>
+            Logout
+        </button>
+    );
+};
 ```
 
 ## Customer Hooks
@@ -127,17 +127,17 @@ const LogoutButton = () => {
 Fetches and returns the data of the signed in customer:
 
 ```jsx
-import useCustomer from '@framework/customer/use-customer'
+import useCustomer from '@framework/customer/use-customer';
 
 const Profile = () => {
-  const { data, isLoading, error } = useCustomer()
+    const { data, isLoading, error } = useCustomer();
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>{error.message}</p>
-  if (!data) return null
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>{error.message}</p>;
+    if (!data) return null;
 
-  return <div>Hello, {data.firstName}</div>
-}
+    return <div>Hello, {data.firstName}</div>;
+};
 ```
 
 ## Product Hooks
@@ -147,19 +147,19 @@ const Profile = () => {
 Helper hook to format price according to the commerce locale and currency code. It also handles discounts:
 
 ```jsx
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
+import useCart from '@framework/cart/use-cart';
+import usePrice from '@framework/product/use-price';
 
 // ...
-const { data } = useCart()
+const { data } = useCart();
 const { price, discount, basePrice } = usePrice(
-  data && {
-    amount: data.subtotalPrice,
-    currencyCode: data.currency.code,
-    // If `baseAmount` is used, a discount will be calculated
-    // baseAmount: number,
-  }
-)
+    data && {
+        amount: data.subtotalPrice,
+        currencyCode: data.currency.code,
+        // If `baseAmount` is used, a discount will be calculated
+        // baseAmount: number,
+    }
+);
 // ...
 ```
 
@@ -168,24 +168,24 @@ const { price, discount, basePrice } = usePrice(
 Fetches and returns the products that match a set of filters:
 
 ```jsx
-import useSearch from '@framework/product/use-search'
+import useSearch from '@framework/product/use-search';
 
 const SearchPage = ({ searchString, category, brand, sortStr }) => {
-  const { data } = useSearch({
-    search: searchString || '',
-    categoryId: category?.entityId,
-    brandId: brand?.entityId,
-    sort: sortStr,
-  })
+    const { data } = useSearch({
+        search: searchString || '',
+        categoryId: category?.entityId,
+        brandId: brand?.entityId,
+        sort: sortStr,
+    });
 
-  return (
-    <Grid layout="normal">
-      {data.products.map((product) => (
-        <ProductCard key={product.path} product={product} />
-      ))}
-    </Grid>
-  )
-}
+    return (
+        <Grid layout="normal">
+            {data.products.map((product) => (
+                <ProductCard key={product.path} product={product} />
+            ))}
+        </Grid>
+    );
+};
 ```
 
 ## Cart Hooks
@@ -195,17 +195,17 @@ const SearchPage = ({ searchString, category, brand, sortStr }) => {
 Fetches and returns the data of the current cart:
 
 ```jsx
-import useCart from '@framework/cart/use-cart'
+import useCart from '@framework/cart/use-cart';
 
 const CartTotal = () => {
-  const { data, isLoading, isEmpty, error } = useCart()
+    const { data, isLoading, isEmpty, error } = useCart();
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>{error.message}</p>
-  if (isEmpty) return <p>The cart is empty</p>
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>{error.message}</p>;
+    if (isEmpty) return <p>The cart is empty</p>;
 
-  return <p>The cart total is {data.totalPrice}</p>
-}
+    return <p>The cart total is {data.totalPrice}</p>;
+};
 ```
 
 ### useAddItem
@@ -213,20 +213,20 @@ const CartTotal = () => {
 Returns a function that adds a new item to the cart when called, if this is the first item it will create the cart:
 
 ```jsx
-import { useAddItem } from '@framework/cart'
+import { useAddItem } from '@framework/cart';
 
 const AddToCartButton = ({ productId, variantId }) => {
-  const addItem = useAddItem()
+    const addItem = useAddItem();
 
-  const addToCart = async () => {
-    await addItem({
-      productId,
-      variantId,
-    })
-  }
+    const addToCart = async () => {
+        await addItem({
+            productId,
+            variantId,
+        });
+    };
 
-  return <button onClick={addToCart}>Add To Cart</button>
-}
+    return <button onClick={addToCart}>Add To Cart</button>;
+};
 ```
 
 ### useUpdateItem
@@ -234,29 +234,21 @@ const AddToCartButton = ({ productId, variantId }) => {
 Returns a function that updates a current item in the cart when called, usually the quantity.
 
 ```jsx
-import { useUpdateItem } from '@framework/cart'
+import { useUpdateItem } from '@framework/cart';
 
 const CartItemQuantity = ({ item }) => {
-  const [quantity, setQuantity] = useState(item.quantity)
-  const updateItem = useUpdateItem({ item })
+    const [quantity, setQuantity] = useState(item.quantity);
+    const updateItem = useUpdateItem({ item });
 
-  const updateQuantity = async (e) => {
-    const val = e.target.value
+    const updateQuantity = async (e) => {
+        const val = e.target.value;
 
-    setQuantity(val)
-    await updateItem({ quantity: val })
-  }
+        setQuantity(val);
+        await updateItem({ quantity: val });
+    };
 
-  return (
-    <input
-      type="number"
-      max={99}
-      min={0}
-      value={quantity}
-      onChange={updateQuantity}
-    />
-  )
-}
+    return <input type="number" max={99} min={0} value={quantity} onChange={updateQuantity} />;
+};
 ```
 
 If the `quantity` is lower than 1 the item will be removed from the cart.
@@ -266,16 +258,16 @@ If the `quantity` is lower than 1 the item will be removed from the cart.
 Returns a function that removes an item in the cart when called:
 
 ```jsx
-import { useRemoveItem } from '@framework/cart'
+import { useRemoveItem } from '@framework/cart';
 
 const RemoveButton = ({ item }) => {
-  const removeItem = useRemoveItem()
-  const handleRemove = async () => {
-    await removeItem(item)
-  }
+    const removeItem = useRemoveItem();
+    const handleRemove = async () => {
+        await removeItem(item);
+    };
 
-  return <button onClick={handleRemove}>Remove</button>
-}
+    return <button onClick={handleRemove}>Remove</button>;
+};
 ```
 
 ## Wishlist Hooks
@@ -285,42 +277,40 @@ Wishlist hooks work just like [cart hooks](#cart-hooks). Feel free to check how 
 The example below shows how to use the `useWishlist`, `useAddItem` and `useRemoveItem` hooks:
 
 ```jsx
-import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist'
+import { useWishlist, useAddItem, useRemoveItem } from '@framework/wishlist';
 
 const WishlistButton = ({ productId, variant }) => {
-  const addItem = useAddItem()
-  const removeItem = useRemoveItem()
-  const { data, isLoading, isEmpty, error } = useWishlist()
+    const addItem = useAddItem();
+    const removeItem = useRemoveItem();
+    const { data, isLoading, isEmpty, error } = useWishlist();
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>{error.message}</p>
-  if (isEmpty) return <p>The wihslist is empty</p>
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>{error.message}</p>;
+    if (isEmpty) return <p>The wihslist is empty</p>;
 
-  const { data: customer } = useCustomer()
-  const itemInWishlist = data?.items?.find(
-    (item) => item.product_id === productId && item.variant_id === variant.id
-  )
+    const { data: customer } = useCustomer();
+    const itemInWishlist = data?.items?.find((item) => item.product_id === productId && item.variant_id === variant.id);
 
-  const handleWishlistChange = async (e) => {
-    e.preventDefault()
-    if (!customer) return
+    const handleWishlistChange = async (e) => {
+        e.preventDefault();
+        if (!customer) return;
 
-    if (itemInWishlist) {
-      await removeItem({ id: itemInWishlist.id })
-    } else {
-      await addItem({
-        productId,
-        variantId: variant.id,
-      })
-    }
-  }
+        if (itemInWishlist) {
+            await removeItem({ id: itemInWishlist.id });
+        } else {
+            await addItem({
+                productId,
+                variantId: variant.id,
+            });
+        }
+    };
 
-  return (
-    <button onClick={handleWishlistChange}>
-      <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
-    </button>
-  )
-}
+    return (
+        <button onClick={handleWishlistChange}>
+            <Heart fill={itemInWishlist ? 'var(--pink)' : 'none'} />
+        </button>
+    );
+};
 ```
 
 ## Commerce API

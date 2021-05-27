@@ -1,39 +1,34 @@
-import isAllowedMethod from './utils/is-allowed-method'
-import createApiHandler, {
-  BigcommerceApiHandler,
-} from './utils/create-api-handler'
-import { BigcommerceApiError } from './utils/errors'
+import isAllowedMethod from './utils/is-allowed-method';
+import createApiHandler, { BigcommerceApiHandler } from './utils/create-api-handler';
+import { BigcommerceApiError } from './utils/errors';
 
-const METHODS = ['GET']
-const fullCheckout = true
+const METHODS = ['GET'];
+const fullCheckout = true;
 
 // TODO: a complete implementation should have schema validation for `req.body`
 const checkoutApi: BigcommerceApiHandler<any> = async (req, res, config) => {
-  if (!isAllowedMethod(req, res, METHODS)) return
+    if (!isAllowedMethod(req, res, METHODS)) return;
 
-  const { cookies } = req
-  const cartId = cookies[config.cartCookie]
+    const { cookies } = req;
+    const cartId = cookies[config.cartCookie];
 
-  try {
-    if (!cartId) {
-      res.redirect('/cart')
-      return
-    }
+    try {
+        if (!cartId) {
+            res.redirect('/cart');
+            return;
+        }
 
-    const { data } = await config.storeApiFetch(
-      `/v3/carts/${cartId}/redirect_urls`,
-      {
-        method: 'POST',
-      }
-    )
+        const { data } = await config.storeApiFetch(`/v3/carts/${cartId}/redirect_urls`, {
+            method: 'POST',
+        });
 
-    if (fullCheckout) {
-      res.redirect(data.checkout_url)
-      return
-    }
+        if (fullCheckout) {
+            res.redirect(data.checkout_url);
+            return;
+        }
 
-    // TODO: make the embedded checkout work too!
-    const html = `
+        // TODO: make the embedded checkout work too!
+        const html = `
       <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -56,22 +51,20 @@ const checkoutApi: BigcommerceApiHandler<any> = async (req, res, config) => {
           <div id="checkout"></div>
         </body>
       </html>
-    `
+    `;
 
-    res.status(200)
-    res.setHeader('Content-Type', 'text/html')
-    res.write(html)
-    res.end()
-  } catch (error) {
-    console.error(error)
+        res.status(200);
+        res.setHeader('Content-Type', 'text/html');
+        res.write(html);
+        res.end();
+    } catch (error) {
+        console.error(error);
 
-    const message =
-      error instanceof BigcommerceApiError
-        ? 'An unexpected error ocurred with the Bigcommerce API'
-        : 'An unexpected error ocurred'
+        const message =
+            error instanceof BigcommerceApiError ? 'An unexpected error ocurred with the Bigcommerce API' : 'An unexpected error ocurred';
 
-    res.status(500).json({ data: null, errors: [{ message }] })
-  }
-}
+        res.status(500).json({ data: null, errors: [{ message }] });
+    }
+};
 
-export default createApiHandler(checkoutApi, {}, {})
+export default createApiHandler(checkoutApi, {}, {});

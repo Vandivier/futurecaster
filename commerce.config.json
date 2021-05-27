@@ -1,6 +1,6 @@
 {
-  "features": {
-    "wishlist": true,
-    "customCheckout": false
-  }
+    "features": {
+        "wishlist": true,
+        "customCheckout": false
+    }
 }

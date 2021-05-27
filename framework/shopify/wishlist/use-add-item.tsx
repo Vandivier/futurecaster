@@ -1,13 +1,13 @@
-import { useCallback } from 'react'
+import { useCallback } from 'react';
 
 export function emptyHook() {
-  const useEmptyHook = async (options = {}) => {
-    return useCallback(async function () {
-      return Promise.resolve()
-    }, [])
-  }
+    const useEmptyHook = async (options = {}) => {
+        return useCallback(async function () {
+            return Promise.resolve();
+        }, []);
+    };
 
-  return useEmptyHook
+    return useEmptyHook;
 }
 
-export default emptyHook
+export default emptyHook;

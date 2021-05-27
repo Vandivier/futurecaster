@@ -1,19 +1,17 @@
-import { useHook, useMutationHook } from '../utils/use-hook'
-import { mutationFetcher } from '../utils/default-fetcher'
-import type { MutationHook } from '../utils/types'
-import type { Provider } from '..'
+import { useHook, useMutationHook } from '../utils/use-hook';
+import { mutationFetcher } from '../utils/default-fetcher';
+import type { MutationHook } from '../utils/types';
+import type { Provider } from '..';
 
-export type UseAddItem<
-  H extends MutationHook<any, any, any> = MutationHook<any, {}, {}>
-> = ReturnType<H['useHook']>
+export type UseAddItem<H extends MutationHook<any, any, any> = MutationHook<any, {}, {}>> = ReturnType<H['useHook']>;
 
-export const fetcher = mutationFetcher
+export const fetcher = mutationFetcher;
 
-const fn = (provider: Provider) => provider.wishlist?.useAddItem!
+const fn = (provider: Provider) => provider.wishlist?.useAddItem!;
 
 const useAddItem: UseAddItem = (...args) => {
-  const hook = useHook(fn)
-  return useMutationHook({ fetcher, ...hook })(...args)
-}
+    const hook = useHook(fn);
+    return useMutationHook({ fetcher, ...hook })(...args);
+};
 
-export default useAddItem
+export default useAddItem;

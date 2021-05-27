@@ -1,69 +1,69 @@
 const getProductQuery = /* GraphQL */ `
-  query getProductBySlug($slug: String!) {
-    productByHandle(handle: $slug) {
-      id
-      handle
-      title
-      productType
-      vendor
-      description
-      descriptionHtml
-      options {
-        id
-        name
-        values
-      }
-      priceRange {
-        maxVariantPrice {
-          amount
-          currencyCode
-        }
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-      }
-      variants(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
+    query getProductBySlug($slug: String!) {
+        productByHandle(handle: $slug) {
             id
+            handle
             title
-            sku
-            selectedOptions {
-              name
-              value
+            productType
+            vendor
+            description
+            descriptionHtml
+            options {
+                id
+                name
+                values
             }
-            priceV2 {
-              amount
-              currencyCode
+            priceRange {
+                maxVariantPrice {
+                    amount
+                    currencyCode
+                }
+                minVariantPrice {
+                    amount
+                    currencyCode
+                }
             }
-            compareAtPriceV2 {
-              amount
-              currencyCode
+            variants(first: 250) {
+                pageInfo {
+                    hasNextPage
+                    hasPreviousPage
+                }
+                edges {
+                    node {
+                        id
+                        title
+                        sku
+                        selectedOptions {
+                            name
+                            value
+                        }
+                        priceV2 {
+                            amount
+                            currencyCode
+                        }
+                        compareAtPriceV2 {
+                            amount
+                            currencyCode
+                        }
+                    }
+                }
             }
-          }
+            images(first: 250) {
+                pageInfo {
+                    hasNextPage
+                    hasPreviousPage
+                }
+                edges {
+                    node {
+                        originalSrc
+                        altText
+                        width
+                        height
+                    }
+                }
+            }
         }
-      }
-      images(first: 250) {
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          node {
-            originalSrc
-            altText
-            width
-            height
-          }
-        }
-      }
     }
-  }
-`
+`;
 
-export default getProductQuery
+export default getProductQuery;

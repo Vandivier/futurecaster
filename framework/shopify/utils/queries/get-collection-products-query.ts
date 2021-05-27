@@ -1,4 +1,4 @@
-import { productConnection } from './get-all-products-query'
+import { productConnection } from './get-all-products-query';
 
 const getCollectionProductsQuery = /* GraphQL */ `
   query getProductsFromCollection(
@@ -20,5 +20,5 @@ const getCollectionProductsQuery = /* GraphQL */ `
       }
     }
   }
-`
-export default getCollectionProductsQuery
+`;
+export default getCollectionProductsQuery;

@@ -1,13 +1,13 @@
-import s from './LoadingDots.module.css'
+import s from './LoadingDots.module.css';
 
 const LoadingDots: React.FC = () => {
-  return (
-    <span className={s.root}>
-      <span />
-      <span />
-      <span />
-    </span>
-  )
-}
+    return (
+        <span className={s.root}>
+            <span />
+            <span />
+            <span />
+        </span>
+    );
+};
 
-export default LoadingDots
+export default LoadingDots;

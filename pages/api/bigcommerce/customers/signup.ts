@@ -1,3 +1,3 @@
-import signupApi from '@framework/api/customers/signup'
+import signupApi from '@framework/api/customers/signup';
 
-export default signupApi()
+export default signupApi();

@@ -27,36 +27,36 @@ These modifications are temporarily until contributions are made to remove them.
 ```js
 // components/product/ProductView/ProductView.tsx
 const ProductView: FC<Props> = ({ product }) => {
-  const addToCart = async () => {
-    setLoading(true)
-    try {
-      await addItem({
-        productId: product.id,
-        variantId: variant ? variant.id : product.variants[0].id,
-      })
-      openSidebar()
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-    }
-  }
-}
+    const addToCart = async () => {
+        setLoading(true);
+        try {
+            await addItem({
+                productId: product.id,
+                variantId: variant ? variant.id : product.variants[0].id,
+            });
+            openSidebar();
+            setLoading(false);
+        } catch (err) {
+            setLoading(false);
+        }
+    };
+};
 ```
 
 ### Proceed to Checkout
 
 ```js
 // components/cart/CartSidebarView/CartSidebarView.tsx
-import { useCommerce } from '@framework'
+import { useCommerce } from '@framework';
 
 const CartSidebarView: FC = () => {
-  const { checkout } = useCommerce()
-  return (
-    <Button href={checkout.webUrl} Component="a" width="100%">
-      Proceed to Checkout
-    </Button>
-  )
-}
+    const { checkout } = useCommerce();
+    return (
+        <Button href={checkout.webUrl} Component="a" width="100%">
+            Proceed to Checkout
+        </Button>
+    );
+};
 ```
 
 ## APIs
@@ -70,54 +70,54 @@ The data is fetched using the [Shopify JavaScript Buy SDK](https://github.com/Sh
 Get a single product by its `handle`.
 
 ```js
-import getProduct from '@framework/product/get-product'
-import { getConfig } from '@framework/api'
+import getProduct from '@framework/product/get-product';
+import { getConfig } from '@framework/api';
 
-const config = getConfig()
+const config = getConfig();
 
 const product = await getProduct({
-  variables: { slug },
-  config,
-})
+    variables: { slug },
+    config,
+});
 ```
 
 ### getAllProducts
 
 ```js
-import getAllProducts from '@framework/product/get-all-products'
-import { getConfig } from '@framework/api'
+import getAllProducts from '@framework/product/get-all-products';
+import { getConfig } from '@framework/api';
 
-const config = getConfig()
+const config = getConfig();
 
 const { products } = await getAllProducts({
-  variables: { first: 12 },
-  config,
-})
+    variables: { first: 12 },
+    config,
+});
 ```
 
 ### getAllCollections
 
 ```js
-import getAllCollections from '@framework/product/get-all-collections'
-import { getConfig } from '@framework/api'
+import getAllCollections from '@framework/product/get-all-collections';
+import { getConfig } from '@framework/api';
 
-const config = getConfig()
+const config = getConfig();
 
 const collections = await getAllCollections({
-  config,
-})
+    config,
+});
 ```
 
 ### getAllPages
 
 ```js
-import getAllPages from '@framework/common/get-all-pages'
-import { getConfig } from '@framework/api'
+import getAllPages from '@framework/common/get-all-pages';
+import { getConfig } from '@framework/api';
 
-const config = getConfig()
+const config = getConfig();
 
 const pages = await getAllPages({
-  variables: { first: 12 },
-  config,
-})
+    variables: { first: 12 },
+    config,
+});
 ```

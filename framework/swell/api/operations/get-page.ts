@@ -1,25 +1,25 @@
-import { Page } from '../../schema'
-import { SwellConfig, getConfig } from '..'
+import { Page } from '../../schema';
+import { SwellConfig, getConfig } from '..';
 
-export type GetPageResult<T extends { page?: any } = { page?: Page }> = T
+export type GetPageResult<T extends { page?: any } = { page?: Page }> = T;
 
 export type PageVariables = {
-  id: string
-}
+    id: string;
+};
 
 async function getPage({
-  url,
-  variables,
-  config,
-  preview,
+    url,
+    variables,
+    config,
+    preview,
 }: {
-  url?: string
-  variables: PageVariables
-  config?: SwellConfig
-  preview?: boolean
+    url?: string;
+    variables: PageVariables;
+    config?: SwellConfig;
+    preview?: boolean;
 }): Promise<GetPageResult> {
-  config = getConfig(config)
-  return {}
+    config = getConfig(config);
+    return {};
 }
 
-export default getPage
+export default getPage;

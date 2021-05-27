@@ -1,4 +1,4 @@
-import { checkoutDetailsFragment } from '../queries/get-checkout-query'
+import { checkoutDetailsFragment } from '../queries/get-checkout-query';
 
 const checkoutCreateMutation = /* GraphQL */ `
   mutation {
@@ -13,5 +13,5 @@ const checkoutCreateMutation = /* GraphQL */ `
       }
     }
   }
-`
-export default checkoutCreateMutation
+`;
+export default checkoutCreateMutation;

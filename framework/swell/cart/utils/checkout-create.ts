@@ -1,28 +1,28 @@
-import { SWELL_CHECKOUT_URL_COOKIE } from '../../const'
+import { SWELL_CHECKOUT_URL_COOKIE } from '../../const';
 
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 export const checkoutCreate = async (fetch: any) => {
-  const cart = await fetch({
-    query: 'cart',
-    method: 'get',
-  })
-
-  if (!cart) {
     const cart = await fetch({
-      query: 'cart',
-      method: 'setItems',
-      variables: [[]],
-    })
-  }
+        query: 'cart',
+        method: 'get',
+    });
 
-  const checkoutUrl = cart?.checkout_url
+    if (!cart) {
+        const cart = await fetch({
+            query: 'cart',
+            method: 'setItems',
+            variables: [[]],
+        });
+    }
 
-  if (checkoutUrl) {
-    Cookies.set(SWELL_CHECKOUT_URL_COOKIE, checkoutUrl)
-  }
+    const checkoutUrl = cart?.checkout_url;
 
-  return cart
-}
+    if (checkoutUrl) {
+        Cookies.set(SWELL_CHECKOUT_URL_COOKIE, checkoutUrl);
+    }
 
-export default checkoutCreate
+    return cart;
+};
+
+export default checkoutCreate;

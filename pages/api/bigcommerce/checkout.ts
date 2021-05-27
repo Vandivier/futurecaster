@@ -1,3 +1,3 @@
-import checkoutApi from '@framework/api/checkout'
+import checkoutApi from '@framework/api/checkout';
 
-export default checkoutApi()
+export default checkoutApi();

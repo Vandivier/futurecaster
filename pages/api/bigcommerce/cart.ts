@@ -1,3 +1,3 @@
-import cartApi from '@framework/api/cart'
+import cartApi from '@framework/api/cart';
 
-export default cartApi()
+export default cartApi();

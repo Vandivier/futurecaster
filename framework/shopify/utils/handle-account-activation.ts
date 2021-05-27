@@ -1,30 +1,24 @@
-import { FetcherOptions } from '@commerce/utils/types'
-import throwUserErrors from './throw-user-errors'
+import { FetcherOptions } from '@commerce/utils/types';
+import throwUserErrors from './throw-user-errors';
 
-import {
-  MutationCustomerActivateArgs,
-  MutationCustomerActivateByUrlArgs,
-} from '../schema'
-import { Mutation } from '../schema'
-import { customerActivateByUrlMutation } from './mutations'
+import { MutationCustomerActivateArgs, MutationCustomerActivateByUrlArgs } from '../schema';
+import { Mutation } from '../schema';
+import { customerActivateByUrlMutation } from './mutations';
 
 const handleAccountActivation = async (
-  fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
-  input: MutationCustomerActivateByUrlArgs
+    fetch: <T = any, B = Body>(options: FetcherOptions<B>) => Promise<T>,
+    input: MutationCustomerActivateByUrlArgs
 ) => {
-  try {
-    const { customerActivateByUrl } = await fetch<
-      Mutation,
-      MutationCustomerActivateArgs
-    >({
-      query: customerActivateByUrlMutation,
-      variables: {
-        input,
-      },
-    })
+    try {
+        const { customerActivateByUrl } = await fetch<Mutation, MutationCustomerActivateArgs>({
+            query: customerActivateByUrlMutation,
+            variables: {
+                input,
+            },
+        });
 
-    throwUserErrors(customerActivateByUrl?.customerUserErrors)
-  } catch (error) {}
-}
+        throwUserErrors(customerActivateByUrl?.customerUserErrors);
+    } catch (error) {}
+};
 
-export default handleAccountActivation
+export default handleAccountActivation;
