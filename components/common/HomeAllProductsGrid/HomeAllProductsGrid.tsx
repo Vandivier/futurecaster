@@ -1,11 +1,13 @@
-import { FC } from 'react';
 import Link from 'next/link';
-import type { Product } from '@commerce/types';
-import { Grid } from '@components/ui';
+import { FC } from 'react';
+
 import { ProductCard } from '@components/product';
-import s from './HomeAllProductsGrid.module.css';
+import { Grid } from '@components/ui';
 import { getCategoryPath, getDesignerPath } from '@lib/search';
 
+import s from './HomeAllProductsGrid.module.css';
+
+import type { Product } from '@commerce/types';
 interface Props {
     categories?: any;
     brands?: any;

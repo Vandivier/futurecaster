@@ -47,19 +47,7 @@ export default function Home({ products, brands, categories }: InferGetStaticPro
                     />
                 ))}
             </Grid>
-            <Marquee variant="secondary">
-                {products.slice(0, 3).map((product, i) => (
-                    <ProductCard
-                        key={product.id}
-                        product={product}
-                        variant="slim"
-                        imgProps={{
-                            width: 320,
-                            height: 320,
-                        }}
-                    />
-                ))}
-            </Marquee>
+
             <Hero
                 headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
                 description="
@@ -82,19 +70,7 @@ export default function Home({ products, brands, categories }: InferGetStaticPro
                     />
                 ))}
             </Grid>
-            <Marquee>
-                {products.slice(0, 3).map((product, i) => (
-                    <ProductCard
-                        key={product.id}
-                        product={product}
-                        variant="slim"
-                        imgProps={{
-                            width: 320,
-                            height: 320,
-                        }}
-                    />
-                ))}
-            </Marquee>
+
             {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}
