@@ -22,7 +22,7 @@ export const FuturecasterBanner = () => {
 
             <div className={s['futurecaster-column']} style={{ background: '#a5a4a8' }}>
                 {/* TODO: randomize button text ['Cast Your Future', 'Shake the Eight Ball', 'Open a Fortune Cookie', 'Read Palms', 'Read Astrology'] */}
-                <div className={s['futurecaster-row']}>
+                <div className={s['futurecaster-row']} style={{ flexGrow: 1 }}>
                     <button className={s['futurecaster-button']} onClick={handleClick}>
                         Cast Your Future
                     </button>

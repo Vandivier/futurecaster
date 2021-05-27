@@ -1,6 +1,6 @@
 .futurecaster-button,
 .futurecaster-button:focus {
-    background: #fff;
+    background: linear-gradient(45deg, #7c7a7e, #0000);
     border: 2px solid #444343;
     border-radius: 0.5rem;
     margin: auto;
@@ -17,7 +17,6 @@
     flex-direction: column;
     height: calc(100vh - 88px);
     justify-content: center;
-    width: 50%;
 }
 
 .futurecaster-row {
