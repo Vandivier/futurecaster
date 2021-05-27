@@ -20,9 +20,9 @@ export const FuturecasterBanner = () => {
             {/* TODO: use image_2_html https://www.npmjs.com/package/image_2_html */}
             <img className={s['futurecaster-column']} src="/skeleton.jpg" alt="A skeleton reaches its hand to the sky" />
 
-            <div className={s['futurecaster-column']} style={{ background: '#a5a4a8' }}>
+            <div className={s['futurecaster-column']} style={{ background: 'linear-gradient(45deg, #7c7a7e, #0000)', flexGrow: 1 }}>
                 {/* TODO: randomize button text ['Cast Your Future', 'Shake the Eight Ball', 'Open a Fortune Cookie', 'Read Palms', 'Read Astrology'] */}
-                <div className={s['futurecaster-row']} style={{ flexGrow: 1 }}>
+                <div className={s['futurecaster-row']}>
                     <button className={s['futurecaster-button']} onClick={handleClick}>
                         Cast Your Future
                     </button>
