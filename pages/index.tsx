@@ -1,13 +1,15 @@
 import { Layout } from '@components/common';
-import { Grid, Marquee, Hero } from '@components/ui';
 import { ProductCard } from '@components/product';
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { Grid, Hero } from '@components/ui';
+import { FuturecasterBanner } from '@components/ui/FuturecasterBanner/FuturecasterBanner';
 
 import { getConfig } from '@framework/api';
-import getAllProducts from '@framework/product/get-all-products';
-import getSiteInfo from '@framework/common/get-site-info';
 import getAllPages from '@framework/common/get-all-pages';
+import getSiteInfo from '@framework/common/get-site-info';
+import getAllProducts from '@framework/product/get-all-products';
+
+// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 
 export async function getStaticProps({ preview, locale }: GetStaticPropsContext) {
     const config = getConfig({ locale });
@@ -35,29 +37,17 @@ export async function getStaticProps({ preview, locale }: GetStaticPropsContext)
 export default function Home({ products, brands, categories }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <>
-            <Grid>
-                {products.slice(0, 3).map((product, i) => (
-                    <ProductCard
-                        key={product.id}
-                        product={product}
-                        imgProps={{
-                            width: i === 0 ? 1080 : 540,
-                            height: i === 0 ? 1080 : 540,
-                        }}
-                    />
-                ))}
-            </Grid>
+            <FuturecasterBanner />
 
             <Hero
-                headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
+                headline="Merch Details: The Futurecaster Hoodie"
                 description="
-        The Yeezy BOOST 350 V2 lineup continues to grow. We recently had the
-        ‘Carbon’ iteration, and now release details have been locked in for
-        this ‘Natural’ joint. Revealed by Yeezy Mafia earlier this year, the
-        shoe was originally called ‘Abez’, which translated to ‘Tin’ in
-        Hebrew. It’s now undergone a name change, and will be referred to as
-        ‘Natural’."
+        Cast your future into reality with this comfy hoodie.
+        Look scary and comfy and magical all at the same time.
+        Let people know that you are smart and open minded by rocking
+        the a quip on the back: ‘Any sufficiently advanced technology is indistinguishable from magic.’"
             />
+
             <Grid layout="B">
                 {products.slice(0, 3).map((product, i) => (
                     <ProductCard

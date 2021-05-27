@@ -4,6 +4,7 @@
     min-height: var(--row-height);
 
     & > * {
+        /* TODO: probably make file scss and also make linter happy w/ @apply */
         @apply row-span-1 bg-transparent box-border overflow-hidden;
         height: 500px;
         max-height: 800px;

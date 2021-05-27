@@ -1,0 +1,25 @@
+.futurecaster-button,
+.futurecaster-button:focus {
+    background: #fff;
+    border: 2px solid #444343;
+    border-radius: 0.5rem;
+    margin: auto;
+    outline: none;
+    padding: 0.5rem;
+}
+
+.futurecaster-button:hover {
+    @apply bg-gray-100;
+}
+
+.futurecaster-column {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 88px);
+    justify-content: center;
+    width: 50%;
+}
+
+.futurecaster-row {
+    display: flex;
+}
