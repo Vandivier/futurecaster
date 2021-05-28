@@ -1,8 +1,12 @@
-import { FC, useEffect, useState, useCallback } from 'react';
-import { Logo, Button, Input } from '@components/ui';
-import useLogin from '@framework/auth/use-login';
-import { useUI } from '@components/ui/context';
 import { validate } from 'email-validator';
+import { FC, useCallback, useEffect, useState } from 'react';
+
+import { Button, Input, Logo } from '@components/ui';
+// import useLogin from '@framework/auth/use-login';
+import { useUI } from '@components/ui/context';
+import { supabase } from '@lib/init-supabase';
+// import { Auth, Button, Typography } from '@supabase/ui';
+import { Auth, Typography } from '@supabase/ui';
 
 interface Props {}
 
@@ -16,7 +20,7 @@ const LoginView: FC<Props> = () => {
     const [disabled, setDisabled] = useState(false);
     const { setModalView, closeModal } = useUI();
 
-    const login = useLogin();
+    // const login = useLogin();
 
     const handleLogin = async (e: React.SyntheticEvent<EventTarget>) => {
         e.preventDefault();
@@ -29,10 +33,12 @@ const LoginView: FC<Props> = () => {
         try {
             setLoading(true);
             setMessage('');
-            await login({
-                email,
-                password,
-            });
+            const { error } = await supabase.auth.signIn({ email });
+            if (error) throw error;
+            // await login({
+            //     email,
+            //     password,
+            // });
             setLoading(false);
             closeModal();
         } catch ({ errors }) {
@@ -56,37 +62,41 @@ const LoginView: FC<Props> = () => {
     }, [handleValidation]);
 
     return (
-        <form onSubmit={handleLogin} className="w-80 flex flex-col justify-between p-3">
-            <div className="flex justify-center pb-12 ">
-                <Logo width="64px" height="64px" />
-            </div>
-            <div className="flex flex-col space-y-3">
-                {message && (
-                    <div className="text-red border border-red p-3">
-                        {message}. Did you {` `}
-                        <a
-                            className="text-accent-9 inline font-bold hover:underline cursor-pointer"
-                            onClick={() => setModalView('FORGOT_VIEW')}
-                        >
-                            forgot your password?
-                        </a>
-                    </div>
-                )}
-                <Input type="email" placeholder="Email" onChange={setEmail} />
-                <Input type="password" placeholder="Password" onChange={setPassword} />
+        <Auth.UserContextProvider supabaseClient={supabase}>
+            <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} />
+        </Auth.UserContextProvider>
 
-                <Button variant="slim" type="submit" loading={loading} disabled={disabled}>
-                    Log In
-                </Button>
-                <div className="pt-1 text-center text-sm">
-                    <span className="text-accents-7">Don't have an account?</span>
-                    {` `}
-                    <a className="text-accent-9 font-bold hover:underline cursor-pointer" onClick={() => setModalView('SIGNUP_VIEW')}>
-                        Sign Up
-                    </a>
-                </div>
-            </div>
-        </form>
+        // <form onSubmit={handleLogin} className="w-80 flex flex-col justify-between p-3">
+        //     <div className="flex justify-center pb-12 ">
+        //         <Logo width="64px" height="64px" />
+        //     </div>
+        //     <div className="flex flex-col space-y-3">
+        //         {message && (
+        //             <div className="text-red border border-red p-3">
+        //                 {message}. Did you {` `}
+        //                 <a
+        //                     className="text-accent-9 inline font-bold hover:underline cursor-pointer"
+        //                     onClick={() => setModalView('FORGOT_VIEW')}
+        //                 >
+        //                     forgot your password?
+        //                 </a>
+        //             </div>
+        //         )}
+        //         <Input type="email" placeholder="Email" onChange={setEmail} />
+        //         <Input type="password" placeholder="Password" onChange={setPassword} />
+
+        //         <Button variant="slim" type="submit" loading={loading} disabled={disabled}>
+        //             Log In
+        //         </Button>
+        //         <div className="pt-1 text-center text-sm">
+        //             <span className="text-accents-7">Don't have an account?</span>
+        //             {` `}
+        //             <a className="text-accent-9 font-bold hover:underline cursor-pointer" onClick={() => setModalView('SIGNUP_VIEW')}>
+        //                 Sign Up
+        //             </a>
+        //         </div>
+        //     </div>
+        // </form>
     );
 };
 
