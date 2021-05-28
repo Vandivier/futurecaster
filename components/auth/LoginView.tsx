@@ -63,7 +63,8 @@ const LoginView: FC<Props> = () => {
 
     return (
         <Auth.UserContextProvider supabaseClient={supabase}>
-            <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} />
+            <Auth providers={['github', 'google']} supabaseClient={supabase} />
+            {/* <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} /> */}
         </Auth.UserContextProvider>
 
         // <form onSubmit={handleLogin} className="w-80 flex flex-col justify-between p-3">
