@@ -1,5 +1,17 @@
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT)
 
+# John's Notes
+
+The Next.js Commerce Section and below are cloned OOTB from NextJS Commerce Starter. Here are some of my notes:
+
+1. This app has two APIs currently: The Commerce API and the app-specific Futurecaster API.
+    - BigCommerce, Swell, and Shopify APIs extend the OOTB NextJS Commerce API.
+    - Futurecaster API is currently in Supabase. Later, I might add Hasura or some other stuff.
+    - The implementations are moderately different; Commerce API uses higher order hooks and I'm not about that life.
+    - Both APIs use isomorphic fetch for HTTP requests. Server-side is Vercel fetch which wraps node-fetch.
+2. The APIs are quasi-MVC. NextJS page/api section is like server routes and the framework folder is like a services directory.
+3. Site is a static prerender NextJS pattern with [SWR](https://swr.vercel.app/docs/with-nextjs) for state management.
+
 # Next.js Commerce
 
 The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store.
