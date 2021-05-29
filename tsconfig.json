@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist",
         "baseUrl": ".",
         "target": "esnext",
         "lib": ["dom", "dom.iterable", "esnext"],
