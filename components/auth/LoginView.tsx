@@ -63,7 +63,7 @@ const LoginView: FC<Props> = () => {
 
     return (
         <Auth.UserContextProvider supabaseClient={supabase}>
-            <Auth providers={['github', 'google']} supabaseClient={supabase} />
+            <Auth providers={['github']} supabaseClient={supabase} />
             {/* <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} /> */}
         </Auth.UserContextProvider>
 
