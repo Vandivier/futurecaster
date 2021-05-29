@@ -15,8 +15,28 @@
 .futurecaster-column {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 88px);
+    height: calc(50vh - 61px);
     justify-content: center;
+
+    @screen md {
+        height: calc(100vh - 88px);
+    }
+}
+
+.futurecaster-column.hidden-until-medium {
+    display: none;
+
+    @screen md {
+        display: flex;
+    }
+}
+
+.futurecaster-column.hidden-on-medium {
+    display: flex;
+
+    @screen md {
+        display: none;
+    }
 }
 
 .futurecaster-row {
