@@ -10,6 +10,7 @@ The Next.js Commerce Section and below are cloned OOTB from NextJS Commerce Star
     - The implementations are moderately different; Commerce API uses higher order hooks and I'm not about that life.
     - Both APIs use isomorphic fetch for HTTP requests. Server-side is Vercel fetch which wraps node-fetch.
 2. The APIs are quasi-MVC. NextJS page/api section is like server routes and the framework folder is like a services directory.
+    - handlers is a subfolder used to catch subservices when the top level services is complicated. As such, in my opinion, handler files are optional / as needed.
 3. Site is a static prerender NextJS pattern with [SWR](https://swr.vercel.app/docs/with-nextjs) for state management.
 
 # Next.js Commerce

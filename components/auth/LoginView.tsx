@@ -2,11 +2,10 @@ import { validate } from 'email-validator';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 import { Button, Input, Logo } from '@components/ui';
-// import useLogin from '@framework/auth/use-login';
+import useLogin from '@framework/auth/use-login';
 import { useUI } from '@components/ui/context';
 import { supabase } from '@lib/init-supabase';
-// import { Auth, Button, Typography } from '@supabase/ui';
-import { Auth, Typography } from '@supabase/ui';
+import { Auth } from '@supabase/ui';
 
 interface Props {}
 
@@ -33,12 +32,10 @@ const LoginView: FC<Props> = () => {
         try {
             setLoading(true);
             setMessage('');
-            const { error } = await supabase.auth.signIn({ email });
-            if (error) throw error;
-            // await login({
-            //     email,
-            //     password,
-            // });
+            await login({
+                email,
+                password,
+            });
             setLoading(false);
             closeModal();
         } catch ({ errors }) {
@@ -60,6 +57,8 @@ const LoginView: FC<Props> = () => {
     useEffect(() => {
         handleValidation();
     }, [handleValidation]);
+
+    console.log({ supabase });
 
     return (
         <Auth.UserContextProvider supabaseClient={supabase}>
