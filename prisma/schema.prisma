@@ -1,21 +1,18 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
   id        Int      @id @default(autoincrement())
-  firstName String?
-  fkAuthId  String   @db.Uuid
-  // image         String?
-  lastName  String?
+  firstName String?  @map(name: "first_name")
+  fkAuthId  String   @map(name: "fk_auth_id") @db.Uuid
+  // profileImage         String // TODO: save default profile image
+  lastName  String?  @map(name: "last_name")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   username  String // TODO: maybe make optional
