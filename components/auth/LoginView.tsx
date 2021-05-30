@@ -2,10 +2,11 @@ import { validate } from 'email-validator';
 import { FC, useCallback, useEffect, useState } from 'react';
 
 import { Button, Input, Logo } from '@components/ui';
-import useLogin from '@framework/auth/use-login';
+import { getSignup } from '../../framework/futurecaster/auth/use-signup';
 import { useUI } from '@components/ui/context';
-import { supabase } from '@lib/init-supabase';
-import { Auth } from '@supabase/ui';
+// import { supabase } from '@lib/init-supabase';
+// import { Auth, Button, Typography } from '@supabase/ui';
+// import { Auth, Typography } from '@supabase/ui';
 
 interface Props {}
 
@@ -32,10 +33,20 @@ const LoginView: FC<Props> = () => {
         try {
             setLoading(true);
             setMessage('');
-            await login({
-                email,
-                password,
-            });
+            // const { error } = await supabase.auth.signIn({ email });
+            // if (error) throw error;
+            // await login({
+            //     email,
+            //     password,
+            // });  // getSignup(email, password);
+            const res = await fetch('/api/signup', {
+                body: JSON.stringify({ email, password: 'example-password' }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            } as any);
+            console.log({ res });
             setLoading(false);
             closeModal();
         } catch ({ errors }) {
@@ -58,45 +69,43 @@ const LoginView: FC<Props> = () => {
         handleValidation();
     }, [handleValidation]);
 
-    console.log({ supabase });
-
     return (
-        <Auth.UserContextProvider supabaseClient={supabase}>
-            <Auth providers={['github']} supabaseClient={supabase} />
-            {/* <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} /> */}
-        </Auth.UserContextProvider>
+        // <Auth.UserContextProvider supabaseClient={supabase}>
+        //     <Auth providers={['github']} supabaseClient={supabase} />
+        //     {/* <Auth providers={['github', 'google', 'twitter']} supabaseClient={supabase} /> */}
+        // </Auth.UserContextProvider>
 
-        // <form onSubmit={handleLogin} className="w-80 flex flex-col justify-between p-3">
-        //     <div className="flex justify-center pb-12 ">
-        //         <Logo width="64px" height="64px" />
-        //     </div>
-        //     <div className="flex flex-col space-y-3">
-        //         {message && (
-        //             <div className="text-red border border-red p-3">
-        //                 {message}. Did you {` `}
-        //                 <a
-        //                     className="text-accent-9 inline font-bold hover:underline cursor-pointer"
-        //                     onClick={() => setModalView('FORGOT_VIEW')}
-        //                 >
-        //                     forgot your password?
-        //                 </a>
-        //             </div>
-        //         )}
-        //         <Input type="email" placeholder="Email" onChange={setEmail} />
-        //         <Input type="password" placeholder="Password" onChange={setPassword} />
+        <form onSubmit={handleLogin} className="w-80 flex flex-col justify-between p-3">
+            <div className="flex justify-center pb-12 ">
+                <Logo width="64px" height="64px" />
+            </div>
+            <div className="flex flex-col space-y-3">
+                {message && (
+                    <div className="text-red border border-red p-3">
+                        {message}. Did you {` `}
+                        <a
+                            className="text-accent-9 inline font-bold hover:underline cursor-pointer"
+                            onClick={() => setModalView('FORGOT_VIEW')}
+                        >
+                            forgot your password?
+                        </a>
+                    </div>
+                )}
+                <Input type="email" placeholder="Email" onChange={setEmail} />
+                <Input type="password" placeholder="Password" onChange={setPassword} />
 
-        //         <Button variant="slim" type="submit" loading={loading} disabled={disabled}>
-        //             Log In
-        //         </Button>
-        //         <div className="pt-1 text-center text-sm">
-        //             <span className="text-accents-7">Don't have an account?</span>
-        //             {` `}
-        //             <a className="text-accent-9 font-bold hover:underline cursor-pointer" onClick={() => setModalView('SIGNUP_VIEW')}>
-        //                 Sign Up
-        //             </a>
-        //         </div>
-        //     </div>
-        // </form>
+                <Button variant="slim" type="submit" loading={loading} disabled={disabled}>
+                    Log In
+                </Button>
+                <div className="pt-1 text-center text-sm">
+                    <span className="text-accents-7">Don't have an account?</span>
+                    {` `}
+                    <a className="text-accent-9 font-bold hover:underline cursor-pointer" onClick={() => setModalView('SIGNUP_VIEW')}>
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+        </form>
     );
 };
 
