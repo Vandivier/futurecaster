@@ -1,3 +1,6 @@
+// import fetchJson from '../../lib/fetchJson'
+// import withSession from '../../lib/session'
+
 import { supabase } from '@lib/init-supabase';
 import { NextApiRequest, NextApiResponse } from 'next';
 
