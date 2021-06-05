@@ -39,14 +39,14 @@ const LoginView: FC<Props> = () => {
             //     email,
             //     password,
             // });  // getSignup(email, password);
-            const res = await fetch('/api/signup', {
+            const json = await fetch('/api/signin', {
                 body: JSON.stringify({ email, password: 'example-password' }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-            } as any);
-            console.log({ res });
+            } as any).then((res) => res.json());
+            console.log({ json });
             setLoading(false);
             closeModal();
         } catch ({ errors }) {
