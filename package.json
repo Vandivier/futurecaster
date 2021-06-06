@@ -7,7 +7,9 @@
         "dev": "next dev",
         "find:unused": "next-unused",
         "generate": "graphql-codegen",
+        "generate-prisma": "npx prisma generate",
         "generate:definitions": "node framework/bigcommerce/scripts/generate-definitions.js",
+        "migrate-prisma-suicide": "npx prisma migrate dev && npx prisma migrate reset -f && npx prisma migrate deploy",
         "prettier-fix": "prettier --write .",
         "start": "next start",
         "test-dotenv": "npx dotenv -e ./.env.local -p NEXT_PUBLIC_SUPABASE_URL"

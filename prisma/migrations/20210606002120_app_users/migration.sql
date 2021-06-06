@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "users" (
+CREATE TABLE "app_users" (
     "id" SERIAL NOT NULL,
     "first_name" TEXT,
     "fk_auth_id" UUID NOT NULL,

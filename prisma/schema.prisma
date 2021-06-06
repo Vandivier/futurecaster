@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model AppUser {
   id        Int      @id @default(autoincrement())
   firstName String?  @map(name: "first_name")
   fkAuthId  String   @map(name: "fk_auth_id") @db.Uuid
@@ -17,5 +17,5 @@ model User {
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   username  String // TODO: maybe make optional
 
-  @@map(name: "users")
+  @@map(name: "app_users")
 }
