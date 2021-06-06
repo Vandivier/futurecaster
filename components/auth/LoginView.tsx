@@ -40,7 +40,7 @@ const LoginView: FC<Props> = () => {
             //     password,
             // });  // getSignup(email, password);
             const json = await fetch('/api/signin', {
-                body: JSON.stringify({ email, password: 'example-password' }),
+                body: JSON.stringify({ email, password: 'example-FANCY-password-123' }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -50,7 +50,7 @@ const LoginView: FC<Props> = () => {
             setLoading(false);
             closeModal();
         } catch ({ errors }) {
-            setMessage(errors[0].message);
+            setMessage((errors && errors[0]?.message) || 'Unknown Error');
             setLoading(false);
         }
     };
@@ -87,7 +87,7 @@ const LoginView: FC<Props> = () => {
                             className="text-accent-9 inline font-bold hover:underline cursor-pointer"
                             onClick={() => setModalView('FORGOT_VIEW')}
                         >
-                            forgot your password?
+                            forget your password?
                         </a>
                     </div>
                 )}

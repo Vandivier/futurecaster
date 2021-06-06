@@ -1,21 +1,43 @@
-import { supabase } from '@lib/init-supabase';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextIronHandler, withSession } from '../../utils/with-session';
 
-import isAllowedMethod from '../../utils/is-allowed-method';
+const handler: NextIronHandler = async (req, res) => {
+    const user = req?.session.get('supabase')?.user;
 
-const METHODS = ['GET'];
+    if (user) {
+        const { aud, email, id, role, user_metadata } = user;
 
-const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (!isAllowedMethod(req, res, METHODS)) return;
-
-    try {
-        const user = await supabase.auth.api.getUserByCookie(req); // TODO: get name from other table
-        res.json(user);
-    } catch (error) {
-        const message = 'An unexpected error ocurred';
-        console.error({ error, message });
-        res.status(500).json({ data: null, errors: [{ message }] });
+        res.json({
+            isLoggedIn: true,
+            isLoggedInToSupabase: aud,
+            ...{ email, id, role, user_metadata },
+        });
+    } else {
+        res.json({
+            isLoggedIn: false,
+        });
     }
 };
 
-export default getUser;
+export const getUser = withSession(handler);
+
+// import { supabase } from '@lib/init-supabase';
+// import { NextApiRequest, NextApiResponse } from 'next';
+
+// import isAllowedMethod from '../../utils/is-allowed-method';
+
+// const METHODS = ['GET'];
+
+// const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
+//     if (!isAllowedMethod(req, res, METHODS)) return;
+
+//     try {
+//         const user = await supabase.auth.api.getUserByCookie(req); // TODO: get name from other table
+//         res.json(user);
+//     } catch (error) {
+//         const message = 'An unexpected error ocurred';
+//         console.error({ error, message });
+//         res.status(500).json({ data: null, errors: [{ message }] });
+//     }
+// };
+
+// export getUser;
