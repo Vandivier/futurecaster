@@ -32,13 +32,13 @@ const SignUpView: FC<Props> = () => {
         try {
             setLoading(true);
             setMessage('');
-            await signup({
-                email,
-                firstName,
-                lastName,
-                password,
-            });
-            setLoading(false);
+            const json = await fetch('/api/signup', {
+                body: JSON.stringify({ email, password: 'example-FANCY-password-123' }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            } as any).then((res) => res.json());
             closeModal();
         } catch ({ errors }) {
             setMessage(errors[0].message);

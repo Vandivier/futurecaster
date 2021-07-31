@@ -13,6 +13,8 @@ export const getSignup = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { email, password } = req.body;
 
+        console.log({ email });
+
         const { user, session, error } = await supabase.auth.signUp({
             email,
             password,

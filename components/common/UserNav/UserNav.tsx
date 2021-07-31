@@ -1,24 +1,33 @@
-import { FC } from 'react';
-import Link from 'next/link';
 import cn from 'classnames';
-import type { LineItem } from '@framework/types';
+import Link from 'next/link';
+import { FC } from 'react';
+import useSWR from 'swr';
+import fetch from 'unfetch';
+
+// import defaultFetcher from '@commerce/utils/default-fetcher';
+import { Avatar } from '@components/common';
+import { Bag, Heart } from '@components/icons';
+import { useUI } from '@components/ui/context';
 import useCart from '@framework/cart/use-cart';
 import useCustomer from '@framework/customer/use-customer';
-import { Avatar } from '@components/common';
-import { Heart, Bag } from '@components/icons';
-import { useUI } from '@components/ui/context';
+
 import DropdownMenu from './DropdownMenu';
 import s from './UserNav.module.css';
 
+import type { LineItem } from '@framework/types';
 interface Props {
     className?: string;
 }
 
 const countItem = (count: number, item: LineItem) => count + item.quantity;
+const fetcher = (url: any) => fetch(url).then((r) => r.json());
 
 const UserNav: FC<Props> = ({ className }) => {
     const { data } = useCart();
     const { data: customer } = useCustomer();
+    // const { data: user, error } = useSWR('/api/user', defaultFetcher);
+    const { data: user, error } = useSWR('/api/user', fetcher);
+    console.log({ user, error });
     const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI();
     const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0;
 
@@ -26,6 +35,11 @@ const UserNav: FC<Props> = ({ className }) => {
         <nav className={cn(s.root, className)}>
             <div className={s.mainContainer}>
                 <ul className={s.list}>
+                    {user?.username && (
+                        <li className={s.item} onClick={toggleSidebar}>
+                            Hi {user.username}
+                        </li>
+                    )}
                     <li className={s.item} onClick={toggleSidebar}>
                         <Bag />
                         {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}

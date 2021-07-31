@@ -5,6 +5,8 @@ import type { Cart, Wishlist, Customer, SearchProductsData } from './types';
 
 const Commerce = createContext<CommerceContextValue<any> | {}>({});
 
+// cartCookie is the reason that Provider is commerce-specific, not a generic API Provider
+// export type Provider vs CommerceProvider
 export type Provider = CommerceConfig & {
     fetcher: Fetcher;
     cart?: {
