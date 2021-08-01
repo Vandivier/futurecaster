@@ -23,13 +23,11 @@ const countItem = (count: number, item: LineItem) => count + item.quantity;
 const fetcher = (url: any) => fetch(url).then((r) => r.json());
 
 const UserNav: FC<Props> = ({ className }) => {
-    const { data } = useCart();
+    const { data: cart } = useCart();
     const { data: customer } = useCustomer();
-    // const { data: user, error } = useSWR('/api/user', defaultFetcher);
-    const { data: user, error } = useSWR('/api/user', fetcher);
-    console.log({ user, error });
+    const { data: user } = useSWR('/api/user', fetcher);
     const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI();
-    const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0;
+    const itemsCount = cart?.lineItems.reduce(countItem, 0) ?? 0;
 
     return (
         <nav className={cn(s.root, className)}>
